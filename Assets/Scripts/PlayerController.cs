@@ -25,21 +25,26 @@ public class PlayerController : MonoBehaviour {
         {
            return;
         }
-      if (Input.GetMouseButtonDowm(0) && jumpCount < 2)
+      if (Input.GetMouseButtonDown(0) && jumpCount < 2)
         {
           jumpCount++;
-            playerRigidbody.velocity = velocity2.zero;
+            playerRigidbody.velocity = Vector2.zero;
             playerRigidbody.AddForce(new Vector2(0, jumpForce));
-            playerAudio.play();
+            playerAudio.Play();
         }
-   }
-
+        else if (Input.GetMouseButtonUP(0) && playerRigidbody.velocity.y > 0)
+        {
+            playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
+        }
+        animtor.setBool("Grounded", isGrounded);
+      }
+        
    private void Die() {
        // 사망 처리
    }
 
    private void OnTriggerEnter2D(Collider2D other) {
-       // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
+       if (other.tag ==)
    }
 
    private void OnCollisionEnter2D(Collision2D collision) {
