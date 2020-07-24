@@ -43,15 +43,24 @@ public class PlayerController : MonoBehaviour {
        // 사망 처리
    }
 
-   private void OnTriggerEnter2D(Collider2D other) {
-       if (other.tag ==)
-   }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "dead" && !isDead)
+        {
+            Die();
+        }
+    }
    private void OnCollisionEnter2D(Collision2D collision) {
        // 바닥에 닿았음을 감지하는 처리
+       if(collision.contacts[0].normal.y > 0.7f)
+        {
+            isGrounded = true;
+            jumpCount = 0;
+        }
    }
 
    private void OnCollisionExit2D(Collision2D collision) {
-       // 바닥에서 벗어났음을 감지하는 처리
+        // 바닥에서 벗어났음을 감지하는 처리
+        isGrounded = false;
    }
 }
