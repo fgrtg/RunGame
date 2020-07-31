@@ -32,20 +32,25 @@ public class PlayerController : MonoBehaviour {
             playerRigidbody.AddForce(new Vector2(0, jumpForce));
             playerAudio.Play();
         }
-        else if (Input.GetMouseButtonUP(0) && playerRigidbody.velocity.y > 0)
+        else if (Input.GetMouseButtonUp(0) && playerRigidbody.velocity.y > 0)
         {
             playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
         }
-        animtor.setBool("Grounded", isGrounded);
+        animator.SetBool("Grounded", isGrounded);
       }
         
    private void Die() {
-       // 사망 처리
+        animator.SetTrigger("Die");
+        playerAudio.clip = deathClip;
+        playerAudio.Play();
+        playerRigidbody.velocity = Vector2.zero;
+        isDead = true;
+        GameManager.instance.OnPlayerDead();
    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "dead" && !isDead)
+        if (other.tag == "Dead" && !isDead)
         {
             Die();
         }
